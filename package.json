@@ -6,8 +6,7 @@
   "main": ".vite/build/main.js",
   "license": "MIT",
   "author": {
-    "name": "guasam",
-    "url": "https://github.com/guasam"
+    "name": "suitcore"
   },
   "keywords": [
     "electrovite",
@@ -29,11 +28,44 @@
     "lint": "eslint src tools --ext ts,tsx --max-warnings 0"
   },
   "config": {
-    "forge": "./tools/forge/forge.config.js"
+    "forge": {
+      "packagerConfig": {
+        "icon": "assets/favicon.ico"
+      },
+      "makers": [
+        {
+          "name": "@electron-forge/maker-squirrel",
+          "platforms": [
+            "win32"
+          ],
+          "config": {
+            "name": "ElectroVite",
+            "setupIcon": "assets/favicon.ico",
+            "authors": "Suitcore",
+            "description": "Descripción de tu aplicación"
+          }
+        },
+        {
+          "name": "@electron-forge/maker-zip",
+          "platforms": [
+            "darwin",
+            "linux"
+          ]
+        },
+        {
+          "name": "@electron-forge/maker-deb",
+          "config": {}
+        },
+        {
+          "name": "@electron-forge/maker-rpm",
+          "config": {}
+        }
+      ]
+    }
   },
   "build": {
     "appId": "com.electrovite.app",
-    "productName": "ElectroVite",
+    "productName": "Suitcore",
     "publish": [
       {
         "provider": "github",
@@ -52,10 +84,10 @@
   },
   "devDependencies": {
     "@electron-forge/cli": "^6.2.1",
-    "@electron-forge/maker-deb": "^6.2.1",
-    "@electron-forge/maker-rpm": "^6.2.1",
-    "@electron-forge/maker-squirrel": "^6.2.1",
-    "@electron-forge/maker-zip": "^6.2.1",
+    "@electron-forge/maker-deb": "^6.4.2",
+    "@electron-forge/maker-rpm": "^6.4.2",
+    "@electron-forge/maker-squirrel": "^6.4.2",
+    "@electron-forge/maker-zip": "^6.4.2",
     "@electron-forge/plugin-vite": "^6.2.1",
     "@types/react": "^18.2.14",
     "@types/react-dom": "^18.2.6",

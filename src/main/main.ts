@@ -28,7 +28,7 @@ app.on('ready', createMainWindow);
  */
 app.on('activate', () => {
   /**
-   * On OS X it's common to re-create a window in the app when the
+   * On macOS it's common to re-create a window in the app when the
    * dock icon is clicked and there are no other windows open.
    */
   if (BrowserWindow.getAllWindows().length === 0) {
@@ -41,7 +41,7 @@ app.on('activate', () => {
  */
 app.on('window-all-closed', () => {
   /**
-   * On OS X it is common for applications and their menu bar
+   * On macOS it is common for applications and their menu bar
    * to stay active until the user quits explicitly with Cmd + Q
    */
   if (process.platform !== 'darwin') {
@@ -56,12 +56,16 @@ app.on('window-all-closed', () => {
 
 function createMainWindow() {
   mainWindow = new BrowserWindow({
-    width: 860,
+    width: 500,
     height: 600,
+    minWidth: 500, // Define tamaño mínimo fijo para la ventana
+    minHeight: 600,
+    maxWidth: 500, // Define tamaño máximo fijo para evitar redimensionamientos
+    maxHeight: 600,
     backgroundColor: '#202020',
     show: false,
     autoHideMenuBar: true,
-    icon: path.resolve('assets/favicon.ico'),
+    icon: path.resolve('assets/favicon.ico'), // Ruta del ícono de la aplicación
     webPreferences: {
       nodeIntegration: false,
       contextIsolation: true,
@@ -72,21 +76,50 @@ function createMainWindow() {
     },
   });
 
-  // Load the index.html of the app window.
+  // Intentar cargar la URL del servidor de desarrollo
   if (MAIN_WINDOW_VITE_DEV_SERVER_URL) {
-    mainWindow.loadURL(MAIN_WINDOW_VITE_DEV_SERVER_URL);
+    mainWindow.loadURL(MAIN_WINDOW_VITE_DEV_SERVER_URL).catch((error) => {
+      console.error(
+        'Error al cargar la URL del servidor de desarrollo:',
+        error.message,
+      );
+
+      // Si falla la carga de la URL, intenta cargar un archivo de respaldo
+      const backupPath = path.join(
+        __dirname,
+        `../renderer/${MAIN_WINDOW_VITE_NAME}/index.html`,
+      );
+
+      console.log('Intentando cargar el archivo de respaldo en:', backupPath);
+
+      mainWindow?.loadFile(backupPath).catch((fileError) => {
+        console.error(
+          'Error al cargar el archivo de respaldo:',
+          fileError.message,
+        );
+      });
+    });
   } else {
-    mainWindow.loadFile(
-      path.join(__dirname, `../renderer/${MAIN_WINDOW_VITE_NAME}/index.html`),
+    // Cargar el archivo de respaldo directamente si no se especifica la URL de desarrollo
+    const backupPath = path.join(
+      __dirname,
+      `../renderer/${MAIN_WINDOW_VITE_NAME}/index.html`,
     );
+
+    mainWindow.loadFile(backupPath).catch((fileError) => {
+      console.error(
+        'Error al cargar el archivo de respaldo:',
+        fileError.message,
+      );
+    });
   }
 
-  // Show window when its ready to
+  // Mostrar la ventana cuando esté lista para mostrar
   mainWindow.on('ready-to-show', () => {
     if (mainWindow) mainWindow.show();
   });
 
-  // Close all windows when main window is closed
+  // Cierra todas las ventanas cuando la ventana principal se cierra
   mainWindow.on('close', () => {
     mainWindow = null;
     app.quit();

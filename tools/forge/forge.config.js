@@ -5,8 +5,8 @@ const rootDir = process.cwd();
 module.exports = {
   packagerConfig: {
     asar: false,
-    executableName: 'ElectroVite',
-    appCopyright: 'Copyright (C) 2023 Guasam, ElectroVite',
+    executableName: 'Suitcore',
+    appCopyright: 'Copyright (C) 2024, Suitcore',
     icon: path.resolve('assets/favicon.ico'),
   },
   rebuildConfig: {},

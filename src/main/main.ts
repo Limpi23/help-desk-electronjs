@@ -72,6 +72,7 @@ function createMainWindow() {
   });
 
   // Intentar cargar la URL del servidor de desarrollo
+  console.log(MAIN_WINDOW_VITE_NAME)
   if (MAIN_WINDOW_VITE_DEV_SERVER_URL) {
     mainWindow.loadURL(MAIN_WINDOW_VITE_DEV_SERVER_URL).catch((error) => {
       console.error(

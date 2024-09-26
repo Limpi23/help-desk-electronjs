@@ -1,6 +1,7 @@
 import image from '$assets/technical.png';
+import suit from '$assets/favicon.ico';
 import React, { useState } from 'react';
-import Swal from 'sweetalert2'; // Importar SweetAlert2
+import Swal from 'sweetalert2';
 
 const App = () => {
   const [formData, setFormData] = useState({
@@ -144,6 +145,16 @@ const App = () => {
           Enviar
         </button>
       </form>
+      <footer className='footer'>
+        <img
+          src={suit}
+          alt='suit'
+          width={20}
+          height={20}
+          className='footer-icon'
+        />
+        <p className='footer-text'>Versión 1.0.0</p>
+      </footer>
     </div>
   );
 };

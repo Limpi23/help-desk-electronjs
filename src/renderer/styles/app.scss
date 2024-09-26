@@ -163,3 +163,23 @@ h1 {
     background-color: #6c737b;
   }
 }
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-align: center;
+  margin-top: 20px;
+  padding: 10px;
+  color: #dfe5ff;
+  font-size: 14px;
+}
+
+.footer-icon {
+  display: block;
+}
+
+.footer-text {
+  margin: 0;
+}

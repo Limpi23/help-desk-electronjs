@@ -31,6 +31,25 @@
   "config": {
     "forge": "./tools/forge/forge.config.js"
   },
+  "build": {
+    "appId": "com.electrovite.app",
+    "productName": "ElectroVite",
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "Limpi23",
+        "repo": "help-desk-electronjs"
+      }
+    ],
+    "files": [
+      "dist/**/*",
+      "node_modules/**/*",
+      "main.js"
+    ],
+    "directories": {
+      "buildResources": "assets"
+    }
+  },
   "devDependencies": {
     "@electron-forge/cli": "^6.2.1",
     "@electron-forge/maker-deb": "^6.2.1",
